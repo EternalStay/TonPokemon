@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ton Pokémon</title>
+  <meta name="description" content="Découvre quel Pokémon tu es. Entre ton prénom, reçois ton Pokémon et découvre tes compatibilités.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="top-nav">
+  <button class="nav-btn" onclick="openModal('modal-credits')" aria-label="Crédits">i</button>
+</nav>
+
+<div class="modal-overlay" id="modal-credits">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-credits')">✕</button>
+    <div class="modal-title">CRÉDITS</div>
+    <div class="credits-block">
+      <div class="credits-label">Concept &amp; développement</div>
+      <div class="credits-value"><a href="#" class="credits-link" id="credit-author">—</a></div>
+    </div>
+    <div class="credits-block">
+      <div class="credits-label">Données Pokémon</div>
+      <div class="credits-value"><a href="https://pokeapi.co" class="credits-link" id="credits-data-link" target="_blank">PokéAPI</a><span> — open source, communautaire</span></div>
+    </div>
+    <div class="credits-block">
+      <div class="credits-label">Sprites</div>
+      <div class="credits-value" id="credits-sprites-val">© Nintendo / Game Freak — usage non commercial</div>
+    </div>
+    <div class="credits-block">
+      <div class="credits-label">Contact</div>
+      <div class="credits-value"><a href="#" class="credits-link" id="credit-contact">—</a></div>
+    </div>
+  </div>
+</div>
+
+<section class="hero" id="screen-hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="eyebrow">Découvre ton identité Pokémon</div>
+    <h1>TON<em>POKÉMON</em></h1>
+    <p>Entre ton prénom. Découvre quel Pokémon tu es,<br>qui sont tes alliés naturels — et tes ennemis.</p>
+    <div class="input-row">
+      <input type="text" id="pseudo-input" placeholder="Ton prénom…" maxlength="30" autocomplete="off">
+      <button class="btn-go" onclick="reveal()">RÉVÉLER</button>
+    </div>
+  </div>
+</section>
+
+<section id="screen-result">
+  <div class="result-layout">
+
+    <div class="poke-card-main anim anim-1">
+      <div class="poke-pseudo-label">Le Pokémon de</div>
+      <div class="poke-pseudo-value" id="res-pseudo">—</div>
+      <img class="poke-sprite" id="res-sprite" src="" alt="">
+      <div class="poke-name-main" id="res-name">—</div>
+      <div class="poke-types-row" id="res-types"></div>
+      <div class="poke-gen-label" id="res-gen">—</div>
+    </div>
+
+    <div class="archetype-strip anim anim-2">
+      <div>
+        <div class="arch-label">Ton archétype</div>
+        <div class="arch-name" id="res-arch">—</div>
+      </div>
+      <div class="arch-desc" id="res-arch-desc">—</div>
+    </div>
+
+    <div class="stats-card anim anim-3">
+      <div class="stats-title">PROFIL</div>
+      <div class="stat-row">
+        <div class="stat-name">Puissance</div>
+        <div class="stat-bar-bg"><div class="stat-bar-fill sc-puissance" id="bar-puissance"></div></div>
+        <div class="stat-val" id="val-puissance">0</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-name">Gabarit</div>
+        <div class="stat-bar-bg"><div class="stat-bar-fill sc-gabarit" id="bar-gabarit"></div></div>
+        <div class="stat-val" id="val-gabarit">0</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-name">Agressivité</div>
+        <div class="stat-bar-bg"><div class="stat-bar-fill sc-agressivite" id="bar-agressivite"></div></div>
+        <div class="stat-val" id="val-agressivite">0</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-name">Vitesse</div>
+        <div class="stat-bar-bg"><div class="stat-bar-fill sc-vitesse" id="bar-vitesse"></div></div>
+        <div class="stat-val" id="val-vitesse">0</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-name">Solidité</div>
+        <div class="stat-bar-bg"><div class="stat-bar-fill sc-solidite" id="bar-solidite"></div></div>
+        <div class="stat-val" id="val-solidite">0</div>
+      </div>
+    </div>
+
+    <div class="compat-card anim anim-4">
+      <div class="compat-title">COMPATIBILITÉ</div>
+      <div class="compat-input-row">
+        <input type="text" id="compat-input" placeholder="Prénom d'un ami…" maxlength="30" autocomplete="off">
+        <button onclick="checkCompat()">TESTER</button>
+      </div>
+      <div class="compat-result" id="compat-result">
+        <div class="compat-duo">
+          <div class="compat-poke">
+            <img id="compat-img-a" src="" alt="">
+            <div class="compat-poke-name" id="compat-name-a">—</div>
+            <div class="compat-poke-pseudo" id="compat-pseudo-a">—</div>
+          </div>
+          <div class="compat-vs">×</div>
+          <div class="compat-poke">
+            <img id="compat-img-b" src="" alt="">
+            <div class="compat-poke-name" id="compat-name-b">—</div>
+            <div class="compat-poke-pseudo" id="compat-pseudo-b">—</div>
+          </div>
+        </div>
+        <div class="compat-score-wrap">
+          <div class="compat-score-num" id="compat-score">—</div>
+          <div class="compat-score-label">% de compatibilité</div>
+        </div>
+        <div class="compat-verdict" id="compat-verdict">—</div>
+      </div>
+    </div>
+
+    <div class="stats-card anim anim-5" id="affinity-card">
+      <div class="affinity-section">
+        <div class="affinity-label">
+          <strong>Tes âmes sœurs</strong>
+          <span class="affinity-sub">Ceux qui partagent ces Pokémon te comprennent sans que tu aies besoin d'expliquer.</span>
+        </div>
+        <div class="affinity-sprites" id="top-affinities"></div>
+      </div>
+      <hr class="affinity-divider">
+      <div class="affinity-section">
+        <div class="affinity-label">
+          <strong>Tes opposés</strong>
+          <span class="affinity-sub">Pas forcément des ennemis — mais vous ne voyez pas le monde pareil.</span>
+        </div>
+        <div class="affinity-sprites" id="worst-affinities"></div>
+      </div>
+    </div>
+
+    <div class="share-row anim anim-6">
+      <button class="btn-share filled" id="btn-save" onclick="exportCard()">Sauvegarder</button>
+      <button class="btn-share" id="btn-change" onclick="goBack()">Changer</button>
+    </div>
+
+  </div>
+</section>
+
+<canvas id="export-canvas" style="display:none"></canvas>
+
+<script src="data/pokedex.js"></script>
+<script src="js/config.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/export.js"></script>
+<script src="js/ui.js"></script>
+
+</body>
+</html>
