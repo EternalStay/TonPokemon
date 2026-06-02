@@ -45,13 +45,26 @@ function renderResult(pseudo, poke) {
 
 function renderAffinities(poke) {
   const { top, worst } = getAffinities(poke);
-  const make = (entry, i) => `
-    <div class="affinity-poke${i === 0 ? ' affinity-poke--first' : ''}">
-      <img src="${entry.sprite}" alt="${pokeName(entry)}" title="${pokeName(entry)}">
-      <div class="affinity-poke-name">${pokeName(entry)}</div>
-    </div>`;
-  document.getElementById('top-affinities').innerHTML   = top.map(make).join('');
-  document.getElementById('worst-affinities').innerHTML = worst.map(make).join('');
+
+  function makeSection(entries) {
+    const first = entries[0];
+    const rest  = entries.slice(1);
+    return `
+      <div class="affinity-poke affinity-poke--first">
+        <img src="${first.sprite}" alt="${pokeName(first)}">
+        <div class="affinity-poke-name">${pokeName(first)}</div>
+      </div>
+      <div class="affinity-rest">
+        ${rest.map(e => `
+          <div class="affinity-poke">
+            <img src="${e.sprite}" alt="${pokeName(e)}">
+            <div class="affinity-poke-name">${pokeName(e)}</div>
+          </div>`).join('')}
+      </div>`;
+  }
+
+  document.getElementById('top-affinities').innerHTML   = makeSection(top);
+  document.getElementById('worst-affinities').innerHTML = makeSection(worst);
 }
 
 function checkCompat() {

@@ -3,7 +3,7 @@ const LANG = {
   h1a:              'TON',
   h1b:              'POKÉMON',
   sub:              'Entre ton prénom. Découvre quel Pokémon tu es,<br>qui sont tes alliés naturels — et tes ennemis.',
-  placeholder:      'Ton prénom…',
+  placeholder:      'ton prénom…',
   btn:              'RÉVÉLER',
   profil:           'PROFIL',
   puissance:        'Puissance',
