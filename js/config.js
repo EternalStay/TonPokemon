@@ -3,8 +3,7 @@ const CONFIG = {
   hashSeed:       4096,
   hashMult:       213,
   totalPokemon:   1025,
-  creditsAuthor:  { label: '— à compléter', url: '#' },
-  creditsContact: { label: '— à compléter', url: '#' },
+  creditsAuthor:  { label: '— EternalStay', url: '#' },
 };
 
 const COMPAT_MATRIX = {
