@@ -13,12 +13,11 @@ function renderResult(pseudo, poke) {
   document.getElementById('res-pseudo').textContent    = pseudo.toUpperCase();
   document.getElementById('res-sprite').src            = poke.sprite;
   document.getElementById('res-name').textContent      = pokeName(poke);
-  document.getElementById('res-gen').textContent       = `${LANG.genLabel} ${poke.gen}  ·  #${poke.id}  ·  BST ${poke.bst}`;
   document.getElementById('res-arch').textContent      = pokeArch(poke);
   document.getElementById('res-arch-desc').textContent = LANG.ARCH_DESC[poke.arch] || '';
   document.querySelector('.poke-pseudo-label').textContent = LANG.pokeLabel;
   document.querySelector('.arch-label').textContent        = LANG.archLabel;
-
+  
   const typesEl = document.getElementById('res-types');
   typesEl.innerHTML = '';
   poke.types.forEach(type => {
